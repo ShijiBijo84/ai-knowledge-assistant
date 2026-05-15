@@ -1,33 +1,33 @@
 import express, { response } from "express";
 import cors from "cors";
-import dotenv from "dotenv";
-import OpenAI from "openai";
+import { createVectorStore, search } from "./rag.js";
+import { client } from "./client.js";
 
-
-dotenv.config()
 const app = express()
 app.use(cors())
 app.use(express.json())
 
 
-/* default baseURL is ://api.openai.com/v1
-and we are overriding here */
+let vectorStore;
+(async () => { vectorStore = await createVectorStore() })()
 
-const client = new OpenAI({
-    baseURL: "https://openrouter.ai/api/v1",
-    apiKey: process.env.OPENROUTER_API_KEY
-})
 
 app.post('/api/chat', async (req, res) => {
     try {
         const { history, userMessage } = req.body
 
         if (!userMessage) return res.status(400).json({ error: "Message required" });
+
+        const docs = await search(vectorStore, userMessage.content)
+        const context = docs.map(d => d.text).join("\n\n")
         const messages = [...(history || []), userMessage]
         const apiResponse = await client.chat.completions.create(
             {
                 model: "openai/gpt-oss-120b",
-                messages,
+                messages: [{
+                    role: "system",
+                    content: `Answer using this context:\n\n${context}`,
+                }, ...messages]
             }
         )
         const assistantReply = apiResponse.choices[0].message

@@ -1,0 +1,81 @@
+Q: What is EMI?
+A: EMI (Equated Monthly Installment) is the fixed amount a borrower pays every month to repay a loan, including both principal and interest.
+
+Q: What is EMI formula?
+A: EMI is calculated using EMI = [P × R × (1+R)^N] / [(1+R)^N – 1], where P is loan amount, R is monthly interest rate, and N is number of months.
+
+Q: How to calculate EMI for a loan?
+A: EMI depends on loan amount, interest rate, and tenure. It is calculated using a standard EMI formula used by banks.
+
+Q: What is interest rate?
+A: Interest rate is the percentage charged by a bank on borrowed money.
+
+Q: What is simple interest?
+A: Simple interest is calculated only on the principal amount using SI = (P × R × T) / 100.
+
+Q: Calculate simple interest for 10000 at 10% for 2 years.
+A: SI = (10000 × 10 × 2) / 100 = 2000.
+
+Q: What is compound interest?
+A: Compound interest is calculated on the principal plus accumulated interest using A = P(1 + R/100)^T.
+
+Q: Calculate compound interest for 10000 at 10% for 2 years.
+A: A = 10000 × (1.1)^2 = 12100, so interest = 2100.
+
+Q: What is loan tenure?
+A: Loan tenure is the duration over which the loan is repaid.
+
+Q: What is principal amount?
+A: Principal is the original amount borrowed from the bank.
+
+Q: What factors affect EMI?
+A: EMI depends on loan amount, interest rate, and loan tenure.
+
+Q: What is home loan EMI example?
+A: For a home loan of 500000 at 8% annual interest for 12 months, EMI is approximately 43500.
+
+Q: What is personal loan EMI example?
+A: For a personal loan of 100000 at 10% annual interest for 12 months, EMI is approximately 8790.
+
+Q: What is education loan EMI example?
+A: For an education loan of 200000 at 5% annual interest for 24 months, EMI is approximately 8770.
+
+Q: What is monthly interest rate?
+A: Monthly interest rate is annual interest rate divided by 12.
+
+Q: How to convert annual interest rate to monthly?
+A: Monthly rate = Annual rate / 12.
+
+Q: What is 10% annual interest monthly?
+A: Monthly interest rate = 10 / 12 = 0.83% per month.
+
+Q: What is reducing balance interest?
+A: Reducing balance interest is calculated on the remaining loan amount after each EMI payment.
+
+Q: What is flat interest rate?
+A: Flat interest rate is calculated on the full loan amount for the entire tenure.
+
+Q: Difference between flat and reducing interest?
+A: Flat interest is calculated on total principal, while reducing interest is calculated on remaining balance, making it cheaper.
+
+Q: What is total interest paid on loan?
+A: Total interest is the difference between total EMI payments and the principal amount.
+
+Q: What is loan amortization?
+A: Loan amortization is the process of gradually repaying a loan through scheduled EMI payments.
+
+Q: What is prepayment in loan?
+A: Prepayment is paying off a loan partially or fully before the tenure ends.
+
+Q: Does prepayment reduce interest?
+A: Yes, prepayment reduces total interest because it lowers the outstanding principal.
+
+Q: What is bank interest calculation method?
+A: Banks use compound interest and reducing balance methods for most loans.
+
+Q: What is credit score impact on loan?
+A: A higher credit score results in lower interest rates and better loan approval chances.
+
+Q: What is minimum EMI rule?
+A: EMI should not exceed 30–40% of the borrower’s monthly income.
+
