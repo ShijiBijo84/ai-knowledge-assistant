@@ -1,10 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef, useState } from "react"
 
+type Message = {
+    role: "user" | "assistant";
+    content: string;
+    reasoning_details?: any;
+};
+
 const App = () => {
-    const [messages, setMessages] = useState([])
+    const [messages, setMessages] = useState<Message[]>([])
     const [input, setInput] = useState("")
     const [loading, setLoading] = useState(false)
-    const bottomRef = useRef(null);
+    const bottomRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -12,7 +19,7 @@ const App = () => {
 
     const sendMessage = async () => {
         if (!input.trim()) return
-        const userMessage = { role: 'user', content: input }
+        const userMessage: Message = { role: 'user', content: input }
         setMessages(prev => [...prev, userMessage])
         setInput("")
         setLoading(true)
@@ -25,9 +32,10 @@ const App = () => {
             const data = await res.json()
             const { response, reasoning_details } = data
             setMessages((prev) => [...prev, { role: "assistant", content: response, reasoning_details }])
-            setLoading(false)
         } catch (err) {
             console.log(err)
+        } finally {
+            setLoading(false)
         }
     }
 
