@@ -1,8 +1,14 @@
 import fs from "fs"
 import { client } from "./client.js"
+import path from "path"
+import { fileURLToPath } from "url";
 
 //Step 2: Load knowledge file
-const rawData = fs.readFileSync('./data/knowledge.txt', "utf-8")
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+const rawData = fs.readFileSync(
+    path.join(__dirname, "data/knowledge.txt"), "utf-8")
 
 //Step 3: Chunking function
 export function splitText(text) {
