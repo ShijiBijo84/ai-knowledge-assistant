@@ -42,7 +42,7 @@ FAQ-style dataset for domain-specific grounded answers.
 - OpenRouter / OpenAI API
 
 ### 🌍 Production Ready
-Deployed and accessible on Render.
+Deployed and accessible on Render: https://ai-knowledge-assistant-cydk.onrender.com
 
 ---
 
@@ -82,7 +82,6 @@ graph TD
 Shiji Bijo
 
 - GitHub: https://github.com/ShijiBijo84
-- Live App: https://ai-knowledge-assistant-cydk.onrender.com
 
 ### ⭐ Support
 
