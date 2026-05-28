@@ -1,11 +1,21 @@
 import express, { response } from "express";
 import cors from "cors";
+import path from "path"
 import { createVectorStore, search } from "./rag.js";
 import { client } from "./client.js";
 
 const app = express()
 app.use(cors())
 app.use(express.json())
+
+const PORT = process.env.PORT || 3000
+
+const __dirName = path.resolve()
+app.use(express.static(path.join(__dirName, "../client/dist")))
+
+app.get("/{*any}", (req, res) => {
+    res.sendFile(path.join(__dirName, "../client/dist/index.html"))
+})
 
 
 let vectorStore;
@@ -39,4 +49,4 @@ app.post('/api/chat', async (req, res) => {
 })
 
 
-app.listen(3000, () => console.log("Server listening to port 3000"))
+app.listen(PORT, () => console.log("Server listening to port 3000"))
