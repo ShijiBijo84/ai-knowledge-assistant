@@ -77,5 +77,5 @@ Q: What is credit score impact on loan?
 A: A higher credit score results in lower interest rates and better loan approval chances.
 
 Q: What is minimum EMI rule?
-A: EMI should not exceed 30–40% of the borrower’s monthly income.
+A: EMI should not exceed 50–60% of the borrower’s monthly income.
 

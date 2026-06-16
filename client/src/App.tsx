@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { useEffect, useRef, useState } from "react"
 
 type Message = {
     role: "user" | "assistant";
     content: string;
-    reasoning_details?: any;
+    reasoning_details?: unknown;
 };
 
 const App = () => {
@@ -15,6 +15,7 @@ const App = () => {
 
     useEffect(() => {
         bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+        bottomRef.current?.focus();
     }, [messages]);
 
     const sendMessage = async () => {
@@ -56,10 +57,8 @@ const App = () => {
                             </div>
                         </div>
                     ))}
-                    {loading && <div className="justify-start w-20 flex bg-gray-700 px-4 py-2 rounded-xl space-x-2">
-                        <span className="animate-bounce">.</span>
-                        <span className="animate-bounce delay-150">.</span>
-                        <span className="animate-bounce delay-300">.</span>
+                    {loading && <div className="justify-start w-40 flex bg-gray-700 px-4 py-2 rounded-xl space-x-2 animate-pulse">
+                        Thinking...
                     </div>}
                     <div ref={bottomRef} />
                 </div>
@@ -70,7 +69,7 @@ const App = () => {
                             disabled={loading}
                             onChange={(e) => setInput(e.target.value)}
                             className="flex-1 bg-transparent outline-none text-white"
-                            placeholder="Type a message..."
+                            placeholder="Ask me anything ..."
                             onKeyDown={(e) => e.key === "Enter" && sendMessage()} />
                         <button
                             onClick={sendMessage}
