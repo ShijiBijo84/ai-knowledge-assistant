@@ -1,91 +1,74 @@
- # 🧠 AI Knowledge Assistant
+```md
+# 🍳 AI Recipe Assistant
 
-> A Retrieval-Augmented Generation (RAG) powered AI chatbot that answers questions using a custom knowledge base, semantic search, and LLM reasoning.
+A Retrieval-Augmented Generation (RAG) powered recipe chatbot that answers recipe-related questions using a custom recipe knowledge base.
 
-🌐 **Live Demo:** https://ai-knowledge-assistant-cydk.onrender.com
+🌐 **Live Demo:** YOUR_DEPLOYMENT_URL
 
 ---
 
 ## 🚀 Overview
 
-AI Knowledge Assistant is a full-stack AI system that combines:
-
-- 🔎 Semantic search (embeddings)
-- 📚 Retrieval-Augmented Generation (RAG)
-- 🧠 Large Language Models (LLMs)
-- ⚡ Vector similarity search
-
-It generates **context-aware, grounded answers** from a custom knowledge base instead of relying on model memory.
+AI Recipe Assistant combines semantic search and AI to find relevant recipes from a curated recipe collection and generate accurate, context-aware responses.
 
 ---
 
-## ✨ Key Features
+## ✨ Features
 
-### 🧠 RAG-Powered Intelligence
-Retrieves relevant context before generating responses.
-
-### 🔎 Semantic Search (Embeddings)
-Uses `text-embedding-3-small` to understand meaning beyond keywords.
-
-### ⚡ Vector Similarity Engine
-Cosine similarity ranking for best-matching knowledge chunks.
-
-### 💬 Chat Interface
-Clean, responsive UI with real-time messaging and loading states.
-
-### 📚 Custom Knowledge Base
-FAQ-style dataset for domain-specific grounded answers.
-
-### 🧩 Full-Stack Architecture
-- React (Frontend)
-- Node.js + Express (Backend)
-- OpenRouter / OpenAI API
-
-### 🌍 Production Ready
-Deployed and accessible on Render: https://ai-knowledge-assistant-cydk.onrender.com
+- 🍳 Recipe Search & Discovery
+- 🔎 Semantic Search with Embeddings
+- 📚 Custom Recipe Knowledge Base
+- 🤖 AI-Powered Recipe Responses
+- ⚡ Fast Retrieval with Vector Search
+- 💬 Clean Chat Interface
+- 🌐 Full-Stack Application (React + Express)
 
 ---
 
-🧱 System Architecture
-```mermaid
-graph TD
-    User([User]) --> UI[React UI]
-    UI --> API[Express API]
+## 🛠️ Tech Stack
 
-    API --> RAG[RAG Pipeline]
+### Frontend
 
-    subgraph RAG_PIPELINE[RAG Pipeline]
-        direction TB
-        EM[Embeddings Model<br/>text-embedding-3-small]
-        VS[Vector Store<br/>In-Memory Chunks]
-        CS[Cosine Similarity Search]
-        
-        EM --> VS
-        VS --> CS
-    end
+- React
+- TypeScript
+- Tailwind CSS
 
-    RAG --> Context[Retrieved Context]
-    Context --> LLM[LLM<br/>OpenRouter / GPT]
-    LLM --> Answer([Final Answer])
+### Backend
 
-    classDef core fill:#e3f2fd,stroke:#1565c0,stroke-width:2px;
-    classDef output fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px;
-    classDef user fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+- Node.js
+- Express
 
-    class User user;
-    class Answer output;
-    class RAG,EM,VS,CS core;
+### AI & RAG
+
+- OpenAI Embeddings (`text-embedding-3-small`)
+- OpenRouter LLM
+- Cosine Similarity Search
+- Custom Vector Store
+
+---
+
+## 📖 Example Questions
+
+- "Give me a pancake recipe"
+- "How do I make spaghetti?"
+- "Show me a quick dessert recipe"
+- "What ingredients are needed for fried rice?"
+
+---
+
+## 👨‍💻 Author
+
+**Shiji Bijo**
+
+GitHub: https://github.com/ShijiBijo84
+
+---
+
+## ⭐ Support
+
+If you found this project useful:
+
+- ⭐ Star the repository
+- 🍴 Fork and customize it
+- 🚀 Build your own AI-powered recipe assistant
 ```
-
-### 👨‍💻 Author
-
-Shiji Bijo
-
-- GitHub: https://github.com/ShijiBijo84
-
-### ⭐ Support
-
-If you like this project:
-- ⭐ Star the repo
-- 🍴 Fork and extend it
-- 🚀 Build your own RAG assistant
