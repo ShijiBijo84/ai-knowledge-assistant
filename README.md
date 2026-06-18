@@ -1,9 +1,9 @@
-```md
+
 # 🍳 AI Recipe Assistant
 
 A Retrieval-Augmented Generation (RAG) powered recipe chatbot that answers recipe-related questions using a custom recipe knowledge base.
 
-🌐 **Live Demo:** YOUR_DEPLOYMENT_URL
+🌐 **Live Demo:** https://ai-knowledge-assistant-cydk.onrender.com
 
 ---
 
@@ -71,4 +71,4 @@ If you found this project useful:
 - ⭐ Star the repository
 - 🍴 Fork and customize it
 - 🚀 Build your own AI-powered recipe assistant
-```
+
