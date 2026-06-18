@@ -12,8 +12,8 @@ const rawData = fs.readFileSync(
 
 //Step 3: Chunking function
 export function splitText(text) {
-    // This splits the text at a position followed by "Q:", without deleting "Q:"
-    return text.split(/\n?(?=Q:)/).filter(Boolean);
+    // This splits the doc at a position followed by "Recipe:", without deleting "Recipe:"
+    return text.split(/(?=Recipe:)/).filter(Boolean);
 
 }
 export const chunks = splitText(rawData);
