@@ -1,81 +1,101 @@
-Q: What is EMI?
-A: EMI (Equated Monthly Installment) is the fixed amount a borrower pays every month to repay a loan, including both principal and interest.
+Recipe: Classic Pancakes
 
-Q: What is EMI formula?
-A: EMI is calculated using EMI = [P × R × (1+R)^N] / [(1+R)^N – 1], where P is loan amount, R is monthly interest rate, and N is number of months.
+Ingredients:
+- 1 cup all-purpose flour
+- 2 tablespoons sugar
+- 1 teaspoon baking powder
+- 1/4 teaspoon salt
+- 1 egg
+- 3/4 cup milk
+- 2 tablespoons melted butter
 
-Q: How to calculate EMI for a loan?
-A: EMI depends on loan amount, interest rate, and tenure. It is calculated using a standard EMI formula used by banks.
+Instructions:
+1. Mix flour, sugar, baking powder, and salt.
+2. In another bowl, whisk egg, milk, and melted butter.
+3. Combine wet and dry ingredients.
+4. Heat a lightly greased pan over medium heat.
+5. Pour 1/4 cup batter for each pancake.
+6. Cook until bubbles form, then flip and cook until golden brown.
 
-Q: What is interest rate?
-A: Interest rate is the percentage charged by a bank on borrowed money.
+Cooking Time: 15 minutes
 
-Q: What is simple interest?
-A: Simple interest is calculated only on the principal amount using SI = (P × R × T) / 100.
+========================================
 
-Q: Calculate simple interest for 10000 at 10% for 2 years.
-A: SI = (10000 × 10 × 2) / 100 = 2000.
+Recipe: Spaghetti Aglio e Olio
 
-Q: What is compound interest?
-A: Compound interest is calculated on the principal plus accumulated interest using A = P(1 + R/100)^T.
+Ingredients:
+- 200g spaghetti
+- 4 garlic cloves, sliced
+- 3 tablespoons olive oil
+- 1/2 teaspoon red pepper flakes
+- Fresh parsley, chopped
+- Salt to taste
 
-Q: Calculate compound interest for 10000 at 10% for 2 years.
-A: A = 10000 × (1.1)^2 = 12100, so interest = 2100.
+Instructions:
+1. Cook spaghetti according to package directions.
+2. Heat olive oil in a pan.
+3. Add garlic and cook until golden.
+4. Stir in red pepper flakes.
+5. Toss cooked spaghetti with the garlic oil.
+6. Garnish with parsley and serve.
 
-Q: What is loan tenure?
-A: Loan tenure is the duration over which the loan is repaid.
+Cooking Time: 20 minutes
 
-Q: What is principal amount?
-A: Principal is the original amount borrowed from the bank.
+========================================
 
-Q: What factors affect EMI?
-A: EMI depends on loan amount, interest rate, and loan tenure.
+Recipe: Vegetable Fried Rice
 
-Q: What is home loan EMI example?
-A: For a home loan of 500000 at 8% annual interest for 12 months, EMI is approximately 43500.
+Ingredients:
+- 2 cups cooked rice
+- 1 cup mixed vegetables
+- 2 eggs
+- 2 tablespoons soy sauce
+- 1 tablespoon sesame oil
+- 2 green onions, chopped
 
-Q: What is personal loan EMI example?
-A: For a personal loan of 100000 at 10% annual interest for 12 months, EMI is approximately 8790.
+Instructions:
+1. Scramble eggs in a wok and set aside.
+2. Stir-fry vegetables for 3–4 minutes.
+3. Add rice and mix well.
+4. Stir in soy sauce and sesame oil.
+5. Add eggs back to the wok.
+6. Garnish with green onions.
 
-Q: What is education loan EMI example?
-A: For an education loan of 200000 at 5% annual interest for 24 months, EMI is approximately 8770.
+Cooking Time: 15 minutes
 
-Q: What is monthly interest rate?
-A: Monthly interest rate is annual interest rate divided by 12.
+========================================
 
-Q: How to convert annual interest rate to monthly?
-A: Monthly rate = Annual rate / 12.
+Recipe: Chocolate Mug Cake
 
-Q: What is 10% annual interest monthly?
-A: Monthly interest rate = 10 / 12 = 0.83% per month.
+Ingredients:
+- 4 tablespoons flour
+- 2 tablespoons cocoa powder
+- 2 tablespoons sugar
+- 3 tablespoons milk
+- 2 tablespoons vegetable oil
 
-Q: What is reducing balance interest?
-A: Reducing balance interest is calculated on the remaining loan amount after each EMI payment.
+Instructions:
+1. Mix all ingredients in a microwave-safe mug.
+2. Stir until smooth.
+3. Microwave for 60–90 seconds.
+4. Let cool slightly before serving.
 
-Q: What is flat interest rate?
-A: Flat interest rate is calculated on the full loan amount for the entire tenure.
+Cooking Time: 5 minutes
 
-Q: Difference between flat and reducing interest?
-A: Flat interest is calculated on total principal, while reducing interest is calculated on remaining balance, making it cheaper.
+========================================
 
-Q: What is total interest paid on loan?
-A: Total interest is the difference between total EMI payments and the principal amount.
+Recipe: Caesar Salad
 
-Q: What is loan amortization?
-A: Loan amortization is the process of gradually repaying a loan through scheduled EMI payments.
+Ingredients:
+- 1 head romaine lettuce
+- 1/4 cup grated Parmesan cheese
+- Croutons
+- 3 tablespoons Caesar dressing
 
-Q: What is prepayment in loan?
-A: Prepayment is paying off a loan partially or fully before the tenure ends.
+Instructions:
+1. Wash and chop lettuce.
+2. Toss with dressing.
+3. Add Parmesan cheese and croutons.
+4. Serve immediately.
 
-Q: Does prepayment reduce interest?
-A: Yes, prepayment reduces total interest because it lowers the outstanding principal.
-
-Q: What is bank interest calculation method?
-A: Banks use compound interest and reducing balance methods for most loans.
-
-Q: What is credit score impact on loan?
-A: A higher credit score results in lower interest rates and better loan approval chances.
-
-Q: What is minimum EMI rule?
-A: EMI should not exceed 50–60% of the borrower’s monthly income.
-
+Cooking Time: 10 minutes
