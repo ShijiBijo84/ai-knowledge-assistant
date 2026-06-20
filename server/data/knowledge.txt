@@ -1,4 +1,7 @@
 Recipe: Classic Pancakes
+Category: breakfast
+Cuisine: american
+Tags: quick, vegetarian, comfort-food
 
 Ingredients:
 - 1 cup all-purpose flour
@@ -22,6 +25,9 @@ Cooking Time: 15 minutes
 ========================================
 
 Recipe: Spaghetti Aglio e Olio
+Category: dinner
+Cuisine: italian
+Tags: quick, vegetarian, pasta, garlic
 
 Ingredients:
 - 200g spaghetti
@@ -44,6 +50,9 @@ Cooking Time: 20 minutes
 ========================================
 
 Recipe: Vegetable Fried Rice
+Category: dinner
+Cuisine: asian
+Tags: quick, vegetarian, stir-fry, rice
 
 Ingredients:
 - 2 cups cooked rice
@@ -66,6 +75,9 @@ Cooking Time: 15 minutes
 ========================================
 
 Recipe: Chocolate Mug Cake
+Category: dessert
+Cuisine: american
+Tags: quick, microwave, sweet, chocolate
 
 Ingredients:
 - 4 tablespoons flour
@@ -85,6 +97,9 @@ Cooking Time: 5 minutes
 ========================================
 
 Recipe: Caesar Salad
+Category: lunch
+Cuisine: american
+Tags: quick, salad, vegetarian, no-cook
 
 Ingredients:
 - 1 head romaine lettuce
@@ -99,3 +114,180 @@ Instructions:
 4. Serve immediately.
 
 Cooking Time: 10 minutes
+
+========================================
+
+Recipe: Tomato Basil Soup
+Category: lunch
+Cuisine: italian
+Tags: vegetarian, soup, comfort-food
+
+Ingredients:
+- 2 tablespoons olive oil
+- 1 onion, diced
+- 2 garlic cloves, minced
+- 1 can (28 oz) crushed tomatoes
+- 2 cups vegetable broth
+- 1/4 cup fresh basil, chopped
+- Salt and pepper to taste
+
+Instructions:
+1. Heat olive oil in a pot over medium heat.
+2. Sauté onion and garlic until softened, about 5 minutes.
+3. Add crushed tomatoes and vegetable broth.
+4. Bring to a boil, then reduce heat and simmer for 15 minutes.
+5. Stir in basil and season with salt and pepper.
+6. Serve hot, optionally with crusty bread.
+
+Cooking Time: 25 minutes
+
+========================================
+
+Recipe: Grilled Cheese Sandwich
+Category: lunch
+Cuisine: american
+Tags: quick, vegetarian, comfort-food, sandwich
+
+Ingredients:
+- 2 slices bread
+- 2 slices cheddar cheese
+- 1 tablespoon butter
+
+Instructions:
+1. Butter one side of each bread slice.
+2. Place cheese between the unbuttered sides of the bread.
+3. Heat a pan over medium-low heat.
+4. Cook sandwich until golden brown on one side, about 3 minutes.
+5. Flip and cook until the other side is golden and cheese is melted.
+6. Cut in half and serve immediately.
+
+Cooking Time: 10 minutes
+
+========================================
+
+Recipe: Chicken Stir Fry
+Category: dinner
+Cuisine: asian
+Tags: high-protein, stir-fry, quick
+
+Ingredients:
+- 1 lb chicken breast, sliced into strips
+- 2 cups mixed vegetables (bell pepper, broccoli, carrots)
+- 3 tablespoons soy sauce
+- 1 tablespoon honey
+- 2 cloves garlic, minced
+- 1 tablespoon vegetable oil
+- 1 teaspoon cornstarch
+
+Instructions:
+1. Mix soy sauce, honey, garlic, and cornstarch in a small bowl.
+2. Heat oil in a wok or large pan over high heat.
+3. Stir-fry chicken until cooked through, about 5–6 minutes. Set aside.
+4. Stir-fry vegetables for 3–4 minutes until crisp-tender.
+5. Return chicken to the pan and pour in the sauce.
+6. Toss everything together and cook for 1–2 minutes until sauce thickens.
+
+Cooking Time: 20 minutes
+
+========================================
+
+Recipe: Banana Smoothie
+Category: breakfast
+Cuisine: american
+Tags: quick, drink, vegetarian, no-cook, sweet
+
+Ingredients:
+- 2 ripe bananas
+- 1 cup milk
+- 1/2 cup yogurt
+- 1 tablespoon honey
+- 1/2 teaspoon vanilla extract
+- 4 ice cubes
+
+Instructions:
+1. Peel bananas and break into chunks.
+2. Add bananas, milk, yogurt, honey, and vanilla to a blender.
+3. Add ice cubes.
+4. Blend on high until smooth and creamy.
+5. Pour into glasses and serve immediately.
+
+Cooking Time: 5 minutes
+
+========================================
+
+Recipe: Margherita Pizza
+Category: dinner
+Cuisine: italian
+Tags: vegetarian, baked, comfort-food
+
+Ingredients:
+- 1 pizza dough (store-bought or homemade)
+- 1/2 cup tomato sauce
+- 8 oz fresh mozzarella, sliced
+- Fresh basil leaves
+- 2 tablespoons olive oil
+- Salt to taste
+
+Instructions:
+1. Preheat oven to 475°F (245°C).
+2. Roll out pizza dough on a floured surface.
+3. Spread tomato sauce evenly over the dough.
+4. Arrange mozzarella slices on top.
+5. Drizzle with olive oil and sprinkle with salt.
+6. Bake for 12–15 minutes until crust is golden and cheese is bubbly.
+7. Top with fresh basil before serving.
+
+Cooking Time: 25 minutes
+
+========================================
+
+Recipe: Beef Tacos
+Category: dinner
+Cuisine: mexican
+Tags: high-protein, quick, spicy
+
+Ingredients:
+- 1 lb ground beef
+- 1 packet taco seasoning
+- 8 taco shells
+- 1 cup shredded lettuce
+- 1 cup shredded cheddar cheese
+- 1 tomato, diced
+- Sour cream and salsa for serving
+
+Instructions:
+1. Brown ground beef in a skillet over medium-high heat.
+2. Drain excess fat and stir in taco seasoning with 1/4 cup water.
+3. Simmer for 5 minutes until thickened.
+4. Warm taco shells according to package directions.
+5. Fill shells with beef, lettuce, cheese, and tomato.
+6. Serve with sour cream and salsa.
+
+Cooking Time: 20 minutes
+
+========================================
+
+Recipe: Greek Salad
+Category: lunch
+Cuisine: greek
+Tags: quick, salad, vegetarian, no-cook, mediterranean
+
+Ingredients:
+- 2 cups chopped romaine lettuce
+- 1 cucumber, diced
+- 1 cup cherry tomatoes, halved
+- 1/2 red onion, thinly sliced
+- 1/2 cup Kalamata olives
+- 4 oz feta cheese, crumbled
+- 3 tablespoons olive oil
+- 1 tablespoon red wine vinegar
+- 1 teaspoon dried oregano
+
+Instructions:
+1. Combine lettuce, cucumber, tomatoes, onion, and olives in a large bowl.
+2. Whisk olive oil, vinegar, and oregano in a small bowl.
+3. Pour dressing over the salad and toss gently.
+4. Top with crumbled feta cheese.
+5. Serve immediately.
+
+Cooking Time: 15 minutes
