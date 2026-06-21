@@ -268,7 +268,7 @@ Cooking Time: 20 minutes
 ========================================
 
 Recipe: Greek Salad
-Category: lunch
+Category: salad
 Cuisine: greek
 Tags: quick, salad, vegetarian, no-cook, mediterranean
 

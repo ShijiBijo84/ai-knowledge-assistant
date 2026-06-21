@@ -20,7 +20,7 @@ const SECTION_PATTERN = new RegExp(
 // Split before each section header without removing it (lookahead only)
 const SECTION_SPLIT = new RegExp(
     `(?=^(?:#{1,3}\\s*)?${SECTION_HEADERS}\\s*:)`,
-    "im"
+    "gim"
 )
 
 // Level 1: split one file into individual recipes
@@ -105,15 +105,23 @@ function cosineSimilarity(a, b) {
     return dot / (Math.sqrt(magA) * Math.sqrt(magB))
 }
 
-export async function search(vectorStore, query, topK = 3, filters = {}) {
+export async function search(vectorStore, query, topK = 5, filters = {}) {
     const queryEmbedding = await embeds(query)
-
+    console.log(filters)
     return vectorStore
         .map((item) => {
             let score = cosineSimilarity(
                 queryEmbedding,
                 item.embedding
             )
+
+            if (
+                filters.recipeName &&
+                item.metadata.recipeName?.toLowerCase() ===
+                filters.recipeName.toLowerCase()
+            ) {
+                score += 10
+            }
 
             if (
                 filters.category &&

@@ -47,7 +47,7 @@ app.post("/api/chat", async (req, res) => {
         // ======================================================
         // 1. FILTER INFERENCE (separate reasoning step)
         // ======================================================
-        const filters = await inferFilters(query);
+        const filters = await inferFilters(query, history);
         // Example output:
         // { category: "dessert", cuisine: "italian" }
 
@@ -94,23 +94,25 @@ app.post("/api/chat", async (req, res) => {
         // 4. SYSTEM PROMPT (NO FILTER LOGIC HERE ANYMORE)
         // ======================================================
         const systemPrompt = `
-You are a recipe assistant.
+            You are a recipe assistant.
 
-RULES:
-- Use ONLY the provided Knowledge Base.
-- Be concise and accurate.
-- Do NOT invent recipes or ingredients.
+            RULES:
+                - Use ONLY the provided Knowledge Base.
+                - Be concise and accurate.
+                - Do NOT invent recipes or ingredients.
+                - consider histroy of previous messages.
 
-OUTPUT FORMAT RULES:
-- Use Markdown.
-- Include only what the user asks for:
-  - Recipe name if relevant
-  - Ingredients only if asked
-  - Instructions only if asked
-  - Cooking time if asked
+            OUTPUT FORMAT RULES:
+                - Use Markdown.
+                - Include only what the user asks for:
+                - Recipe name if relevant
+                - Ingredients only if asked
+                - Instructions only if asked
+                - Cooking time if asked
+                - If full recipe or how to make asked provide full recipe.
 
-Knowledge Base:
-${context}
+            Knowledge Base:
+            ${context}
         `;
 
         // ======================================================
@@ -118,7 +120,6 @@ ${context}
         // ======================================================
         const apiResponse = await client.chat.completions.create({
             model: "openai/gpt-oss-120b",
-            temperature: 0,
             messages: [
                 { role: "system", content: systemPrompt },
                 ...history,
