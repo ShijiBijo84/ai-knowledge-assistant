@@ -10,6 +10,7 @@ export async function inferFilters(query, history = []) {
 
     const response = await client.chat.completions.create({
         model: "openai/gpt-oss-20b",
+        temperature: 0,
         messages: [
             {
                 role: "system",

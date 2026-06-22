@@ -120,6 +120,7 @@ app.post("/api/chat", async (req, res) => {
         // ======================================================
         const apiResponse = await client.chat.completions.create({
             model: "openai/gpt-oss-120b",
+            temperature: 0,
             messages: [
                 { role: "system", content: systemPrompt },
                 ...history,
