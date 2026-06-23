@@ -1,4 +1,4 @@
-````md
+
 # 🍳 AI Recipe Assistant
 
 A Retrieval-Augmented Generation (RAG) powered recipe chatbot that answers recipe-related questions using a custom recipe knowledge base.
@@ -182,5 +182,3 @@ GitHub: [https://github.com/ShijiBijo84](https://github.com/ShijiBijo84)
 
 Star the repo, fork it, and build your own RAG assistant.
 
-```
-```
