@@ -77,7 +77,7 @@ Cooking Time: 15 minutes
 Recipe: Chocolate Mug Cake
 Category: dessert
 Cuisine: american
-Tags: quick, microwave, sweet, chocolate
+Tags: quick, microwave, sweet, chocolate, mug cake
 
 Ingredients:
 - 4 tablespoons flour
@@ -99,7 +99,7 @@ Cooking Time: 5 minutes
 Recipe: Caesar Salad
 Category: lunch
 Cuisine: american
-Tags: quick, salad, vegetarian, no-cook
+Tags: quick, salad, vegetarian, no cook
 
 Ingredients:
 - 1 head romaine lettuce

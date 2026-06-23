@@ -107,7 +107,15 @@ function cosineSimilarity(a, b) {
 
 export async function search(vectorStore, query, topK = 5, filters = {}) {
     const queryEmbedding = await embeds(query)
-    console.log(filters)
+
+    if (filters.recipeName) {
+        return vectorStore.filter(
+            item =>
+                item.metadata.recipeName?.toLowerCase() ===
+                filters.recipeName.toLowerCase()
+        );
+    }
+
     return vectorStore
         .map((item) => {
             let score = cosineSimilarity(
@@ -115,13 +123,6 @@ export async function search(vectorStore, query, topK = 5, filters = {}) {
                 item.embedding
             )
 
-            if (
-                filters.recipeName &&
-                item.metadata.recipeName?.toLowerCase() ===
-                filters.recipeName.toLowerCase()
-            ) {
-                score += 10
-            }
 
             if (
                 filters.category &&

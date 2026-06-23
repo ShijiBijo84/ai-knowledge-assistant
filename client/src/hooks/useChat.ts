@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import type { Message } from "../types/chat";
+import type { Filters, Message } from "../types/chat";
+import { defaultFilters } from "../constants/defaultFilters";
 
 export function useChat() {
     const [messages, setMessages] = useState<Message[]>([]);
     const [input, setInput] = useState("");
     const [loading, setLoading] = useState(false);
+    const [newFilters, setNewFilters] = useState<Filters>(defaultFilters)
     const bottomRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
@@ -24,13 +26,16 @@ export function useChat() {
             const res = await fetch("/api/chat", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ history: messages, userMessage }),
+                body: JSON.stringify({ history: messages, userMessage, filters: newFilters }),
             });
 
             if (!res.ok) throw new Error("Chat request failed");
 
             const data = await res.json();
-            const { response, reasoning_details } = data;
+            const { response, reasoning_details, filters } = data;
+
+            const sameFilters = JSON.stringify(filters) === JSON.stringify(newFilters)
+            if (!sameFilters) setNewFilters(filters)
 
             setMessages((prev) => [
                 ...prev,

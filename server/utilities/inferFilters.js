@@ -1,9 +1,15 @@
 import { client } from "../client.js";
+import { INFER_FILTERS_PROMPT } from "../prompts/inferFiltersPrompt.js";
 
-export async function inferFilters(query, history = []) {
+export async function inferFilters(
+    query,
+    history = [],
+    previousFilters = {}
+) {
     const historyText =
         history.length > 0
             ? history
+                .slice(-6)
                 .map((m) => `${m.role}: ${m.content}`)
                 .join("\n")
             : "No conversation history";
@@ -11,44 +17,38 @@ export async function inferFilters(query, history = []) {
     const response = await client.chat.completions.create({
         model: "openai/gpt-oss-20b",
         temperature: 0,
+        response_format: {
+            type: "json_object"
+        },
         messages: [
             {
                 role: "system",
+                content: INFER_FILTERS_PROMPT
+            },
+            {
+                role: "user",
                 content: `
-        Extract recipe filters.
+                Conversation history:
+                ${historyText}
 
-        Conversation:
-        ${historyText}
+                Current user query:
+                ${query}
 
-        Current query:
-        ${query}
-
-        Return JSON only:
-
-        {
-            "recipeName": null,
-            "category": null,
-            "cuisine": null,
-            "tags": []
-        }
-
-        Rules:
-            - Use conversation history to resolve references.
-            - Do not guess.
-            - Unknown => null.
-`
-            }
+                Previous filters:
+                ${JSON.stringify(previousFilters)}
+      `            }
         ]
     });
 
     try {
-        const content = response.choices[0].message.content.trim();
-
-        return JSON.parse(content);
+        return JSON.parse(
+            response.choices[0].message.content
+        );
     } catch (error) {
-        console.error("Failed to parse filter JSON:", error);
+        console.error(error);
 
         return {
+            intent: "SEARCH_RECIPE",
             recipeName: null,
             category: null,
             cuisine: null,
