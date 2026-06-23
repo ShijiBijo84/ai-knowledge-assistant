@@ -1,4 +1,4 @@
-
+````md
 # 🍳 AI Recipe Assistant
 
 A Retrieval-Augmented Generation (RAG) powered recipe chatbot that answers recipe-related questions using a custom recipe knowledge base.
@@ -9,80 +9,42 @@ A Retrieval-Augmented Generation (RAG) powered recipe chatbot that answers recip
 
 ## 🚀 Overview
 
-AI Recipe Assistant combines semantic search and AI to find relevant recipes from a curated recipe collection and generate accurate, context-aware responses.
+AI Recipe Assistant combines semantic search with LLM reasoning to deliver grounded, context-aware recipe answers.
 
-Instead of sending the entire recipe database to the language model, the application retrieves only the most relevant recipe information and uses that context to generate answers grounded in the knowledge base.
+Instead of sending the entire dataset to the model, the system extracts intent and filters, maintains conversation state, retrieves relevant recipe chunks via vector search, and generates responses strictly from that context.
+
+This ensures accurate, non-hallucinated recipe responses grounded in the knowledge base.
 
 ---
 
 ## ✨ Features
 
-* 🍳 Recipe Search & Discovery
-* 🔎 Semantic Search with Embeddings
-* 📚 Custom Recipe Knowledge Base
-* 🤖 AI-Powered Recipe Responses
-* ⚡ Fast Retrieval with Vector Search
-* 💬 Clean Chat Interface
-* 🧠 Conversation-Aware Retrieval
-* 🌐 Full-Stack Application (React + Express)
+- 🍳 Recipe search and discovery
+- 🧠 Intent-aware conversation handling
+- 🔄 Stateful follow-up question support
+- 🔎 Semantic search using embeddings
+- 📚 Custom recipe knowledge base
+- ⚡ Fast vector similarity retrieval
+- 🤖 Grounded LLM responses (RAG)
+- 💬 ChatGPT-like conversational flow
 
 ---
 
 ## 🛠️ Tech Stack
 
-### Frontend
-
-* React
-* TypeScript
-* Tailwind CSS
-
-### Backend
-
-* Node.js
-* Express
-
-### AI & RAG
-
-* OpenAI Embeddings (`text-embedding-3-small`)
-* OpenRouter LLM
-* Cosine Similarity Search
-* Custom Vector Store
-* Retrieval-Augmented Generation (RAG)
+Frontend: React, TypeScript, Tailwind CSS  
+Backend: Node.js, Express  
+AI & RAG: OpenAI embeddings (`text-embedding-3-small`), OpenRouter LLM, cosine similarity search, custom in-memory vector store
 
 ---
 
 ## 🧠 How RAG Works
 
-The application follows a Retrieval-Augmented Generation pipeline:
-
 ### 1. Recipe Chunking
 
-Recipes are split into smaller searchable chunks such as:
+Each recipe is split into sections: ingredients, instructions, and cooking time. Each section becomes a searchable chunk with metadata like recipe name, cuisine, category, and tags.
 
-* Ingredients
-* Instructions
-* Cooking Time
-
-Example:
-
-```text
-Recipe: Beef Tacos
-
-Ingredients:
-- 1 lb ground beef
-- Taco seasoning
-- Taco shells
-
-Instructions:
-1. Brown the beef
-2. Add seasoning
-
-Cooking Time:
-20 minutes
-```
-
-Each chunk is stored with metadata:
-
+Example metadata:
 ```json
 {
   "recipeName": "Beef Tacos",
@@ -91,46 +53,17 @@ Each chunk is stored with metadata:
   "cuisine": "Mexican",
   "tags": ["beef"]
 }
-```
+````
 
 ---
 
-### 2. Filter Extraction
+### 2. Intent + Filter Extraction
 
-Before searching, the system extracts recipe-related filters from the user's query.
-
-**User Query**
-
-```text
-Quick Mexican recipe
-```
-
-**Extracted Filters**
+Before retrieval, the system extracts structured intent and filters from the user query and conversation history. This enables follow-up understanding such as “ingredients”, “full recipe”, or “how long does it take”.
 
 ```json
 {
-  "recipeName": null,
-  "category": null,
-  "cuisine": "Mexican",
-  "tags": ["quick"]
-}
-```
-
-The assistant also uses conversation history to resolve follow-up questions.
-
-**Conversation**
-
-```text
-User: Mexican recipe
-Assistant: Beef Tacos
-
-User: Full recipe
-```
-
-**Resolved Filters**
-
-```json
-{
+  "intent": "SEARCH_RECIPE | INGREDIENTS | INSTRUCTIONS | FULL_RECIPE | COOKING_TIME",
   "recipeName": "Beef Tacos",
   "category": "Tacos",
   "cuisine": "Mexican",
@@ -140,141 +73,114 @@ User: Full recipe
 
 ---
 
-### 3. Semantic Search
+### 3. Stateful Conversation Memory
 
-The user query is converted into an embedding using:
-
-```text
-text-embedding-3-small
-```
-
-Recipe chunks are also embedded and stored in a custom vector store.
-
-The system compares embeddings using cosine similarity to find the most relevant chunks.
-
-Additional metadata can boost search relevance:
-
-* Recipe Name
-* Cuisine
-* Category
-* Tags
-
----
-
-### 4. Context Construction
-
-Top matching chunks are assembled into a temporary context:
-
-```text
-[Beef Tacos | ingredients | Mexican]
-- 1 lb ground beef
-- Taco seasoning
-- Taco shells
-
-[Beef Tacos | instructions | Mexican]
-1. Brown the beef
-2. Add seasoning
-```
-
-Only the retrieved context is provided to the language model.
-
----
-
-### 5. Response Generation
-
-The language model generates an answer using only the retrieved recipe information.
+The system remembers the active recipe context so follow-up queries do not require re-searching.
 
 Example:
 
-**User**
+User: Mexican recipe
+Assistant: Beef Tacos
+User: ingredients
 
-```text
-What ingredients do I need for Beef Tacos?
-```
+Resolved internally:
 
-**Assistant**
-
-```text
-- 1 lb ground beef
-- Taco seasoning
-- Taco shells
-- Lettuce
-- Cheese
-```
-
-This helps reduce hallucinations and keeps responses grounded in the recipe knowledge base.
-
----
-
-## 🔄 Retrieval Flow
-
-```text
-User Question
-      │
-      ▼
-Filter Extraction
-      │
-      ▼
-Embedding Generation
-      │
-      ▼
-Vector Search
-      │
-      ▼
-Retrieve Recipe Chunks
-      │
-      ▼
-Build Context
-      │
-      ▼
-LLM Response
+```json
+{
+  "intent": "INGREDIENTS",
+  "recipeName": "Beef Tacos"
+}
 ```
 
 ---
 
-## 📖 Example Questions
+### 4. Semantic Search (RAG)
 
-* "Give me a pancake recipe"
-* "How do I make spaghetti?"
-* "Show me a quick dessert recipe"
-* "What ingredients are needed for fried rice?"
-* "How long does Beef Tacos take to make?"
-* "Give me the full recipe"
+User queries are converted into embeddings using `text-embedding-3-small`. These are compared against precomputed recipe embeddings using cosine similarity. Filters like cuisine, category, and tags boost relevance.
 
 ---
 
-## 🏗️ Project Structure
+### 5. Context Construction
 
-```text
+Top matching chunks are combined into a single context block:
+
+[Beef Tacos | ingredients | Mexican]
+
+* Ground beef
+* Taco seasoning
+
+[Beef Tacos | instructions | Mexican]
+
+1. Cook beef
+2. Add seasoning
+
+Only this context is sent to the LLM.
+
+---
+
+### 6. Response Generation
+
+The LLM generates responses strictly from retrieved context. It does not rely on prior knowledge and cannot invent recipes or ingredients.
+
+---
+
+## 🔄 System Flow
+
+User Query → Intent + Filters → Conversation Memory → Vector Search → Context Builder → LLM Response
+
+---
+
+## 📖 Example
+
+User: Mexican recipe
+Assistant: Beef Tacos
+
+User: ingredients
+→ Ground beef, taco seasoning, taco shells
+
+User: how long does it take?
+→ 5 minutes
+
+---
+
+## 🧱 Project Structure
+
 server/
-├── data/
-│   └── knowledge.txt
+├── data/knowledge.txt
+├── prompts/
 ├── utilities/
-│   └── inferFilters.js
 ├── rag.js
 ├── client.js
 └── index.js
 
 client/
 ├── src/
-├── public/
-└── dist/
-```
+├── components/
+├── hooks/
+├── pages/
+└── types/
+
+---
+
+## 🧠 Key Improvement
+
+The system evolved from stateless RAG to conversational RAG:
+
+* Before: independent queries, no memory
+* Now: intent classification, stateful filters, and reference resolution
 
 ---
 
 ## 👨‍💻 Author
 
-**Shiji Bijo**
-
-GitHub: https://github.com/ShijiBijo84
+Shiji Bijo
+GitHub: [https://github.com/ShijiBijo84](https://github.com/ShijiBijo84)
 
 ---
 
 ## ⭐ Support
 
-If you found this project useful:
+Star the repo, fork it, and build your own RAG assistant.
 
-* ⭐ Star the repository
-* 🍴 Fork and customize it
-* 🚀 Build your own AI-powered recipe assistant
+```
+```
