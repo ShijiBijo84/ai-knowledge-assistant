@@ -2,6 +2,7 @@ import fs from "fs"
 import { client } from "./client.js"
 import path from "path"
 import { fileURLToPath } from "url";
+import { SECTIONS } from "./constants/sections.js";
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -105,16 +106,31 @@ function cosineSimilarity(a, b) {
     return dot / (Math.sqrt(magA) * Math.sqrt(magB))
 }
 
+function getRecipeChunks(vectorStore, recipeName) {
+    return vectorStore.filter(
+        item =>
+            item.metadata.recipeName?.toLowerCase() ===
+            recipeName.toLowerCase()
+    );
+}
+
 export async function search(vectorStore, query, topK = 5, filters = {}) {
 
-    if (filters.recipeName) {
-        return vectorStore.filter(
-            item =>
-                item.metadata.recipeName?.toLowerCase() ===
-                filters.recipeName.toLowerCase()
-        );
+    const { intent, recipeName } = filters
+    if (recipeName) {
+        const recipeChunks = getRecipeChunks(vectorStore, recipeName)
+        switch (intent) {
+            case 'INGREDIENTS':
+                return recipeChunks.filter((x) => x.metadata.section === SECTIONS.INGREDIENTS)
+            case 'INSTRUCTIONS':
+                return recipeChunks.filter((x) => x.metadata.section === SECTIONS.INSTRUCTIONS)
+            case 'COOKING_TIME':
+                return recipeChunks.filter((x) => x.metadata.section === SECTIONS.COOKING_TIME)
+            case 'FULL_RECIPE':
+            default:
+                return recipeChunks
+        }
     }
-
     const queryEmbedding = await embeds(query)
 
     return vectorStore
@@ -156,6 +172,7 @@ export async function search(vectorStore, query, topK = 5, filters = {}) {
                 score,
             }
         })
+        .filter((item) => item.score >= 0.25)
         .sort((a, b) => b.score - a.score)
         .slice(0, topK)
 }
