@@ -141,27 +141,6 @@ User: ingredients
 User: how long does it take?
 → 5 minutes
 
----
-
-## 🧱 Project Structure
-
-server/
-├── data/knowledge.txt
-├── prompts/
-├── utilities/
-├── rag.js
-├── client.js
-└── index.js
-
-client/
-├── src/
-├── components/
-├── hooks/
-├── pages/
-└── types/
-
----
-
 ## 🧠 Key Improvement
 
 The system evolved from stateless RAG to conversational RAG:

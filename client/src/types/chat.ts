@@ -9,5 +9,12 @@ export type Filters = {
     recipeName: string | null;
     category: string | null;
     cuisine: string | null;
-    tags: string[]
+    tags: string[];
+}
+
+export type ChatSession = {
+    id: string;
+    title: string;
+    messages: Message[];
+    filters: Filters;
 }
