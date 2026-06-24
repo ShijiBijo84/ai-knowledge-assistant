@@ -2,7 +2,10 @@ import { useChatStore } from "../store/chatStore";
 
 
 export function Sidebar() {
-    const { chats, createChat, setActiveChatId, activeChatId } = useChatStore()
+    const chats = useChatStore((s) => s.chats);
+    const activeChatId = useChatStore((s) => s.activeChatId);
+    const createChat = useChatStore((s) => s.createChat);
+    const setActiveChatId = useChatStore((s) => s.setActiveChatId);
 
     return (
         <div className="w-64 bg-zinc-950 border-r border-zinc-800 flex flex-col ">
