@@ -2,11 +2,11 @@ import { useChatStore } from "../store/chatStore";
 
 
 export function Sidebar() {
-    const { chats, createChat, setActiveChatId } = useChatStore()
+    const { chats, createChat, setActiveChatId, activeChatId } = useChatStore()
 
     return (
-        <div className="w-64 bg-zinc-900 border-r border-zinc-800 flex flex-col">
-            <div className="p-4 border-b border-zinc-800 font-semibold">
+        <div className="w-64 bg-zinc-950 border-r border-zinc-800 flex flex-col ">
+            <div className="p-4 border-b border-zinc-800 font-semibold text-sm tracking-wide text-zinc-200">
                 Recipe AI
             </div>
 
@@ -14,18 +14,32 @@ export function Sidebar() {
                 <button
                     type="button"
                     onClick={createChat}
-                    className="w-full rounded-lg bg-zinc-800 hover:bg-zinc-700 p-3 text-left transition"
+                    className="
+                    w-full rounded-lg
+                    bg-zinc-800 hover:bg-zinc-700
+                    active:scale-[0.98]
+                    transition
+                    p-3 text-left
+                    text-sm font-medium
+                  text-zinc-100
+                 "
                 >
                     + New Chat
                 </button>
             </div>
-            <div className="flex-1 overflow-y-auto p-2 space-y-2">
+            <div className="flex-1 overflow-y-auto p-2 space-y-1">
                 {chats.map(chat => (
 
                     <button
                         key={chat.id}
                         onClick={() => setActiveChatId(chat.id)}
-                        className="w-full rounded-lg px-3 py-2 text-left transition bg-zinc-800 hover:bg-zinc-700"
+                        className={`
+                            w-full text-left rounded-lg px-3 py-2 text-sm transition
+                            truncate
+                            ${activeChatId === chat.id
+                                ? "bg-zinc-700 text-white"
+                                : "text-zinc-300 hover:bg-zinc-800 hover:text-white"}
+                        `}
                     >
                         {chat.title}
                     </button>

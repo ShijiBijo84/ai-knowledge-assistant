@@ -1,2 +1,15 @@
 @import "tailwindcss";
 @config "../tailwind.config.js";
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3f3f46;
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #52525b;
+}

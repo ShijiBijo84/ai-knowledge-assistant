@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { ChatHeader } from "./components/ChatHeader";
 import { ChatInput } from "./components/ChatInput";
 import { MessageList } from "./components/MessageList";
@@ -6,21 +6,23 @@ import { Sidebar } from "./components/Sidebar";
 import { useChatStore } from "./store/chatStore";
 
 const App = () => {
-    const {
-        chats,
-        activeChatId,
-        input,
-        loading,
-        setInput,
-        sendMessage,
-    } = useChatStore();
+    const chats = useChatStore((s) => s.chats);
+    const activeChatId = useChatStore((s) => s.activeChatId);
+    const input = useChatStore((s) => s.input);
+    const loading = useChatStore((s) => s.loading);
+    const setInput = useChatStore((s) => s.setInput);
+    const sendMessage = useChatStore((s) => s.sendMessage);
+
     const bottomRef = useRef<HTMLDivElement | null>(null);
 
-    const activeChat = chats.find(c => c.id === activeChatId)
+    const activeChat = useMemo(
+        () => chats.find(c => c.id === activeChatId),
+        [chats, activeChatId]
+    );
 
     useEffect(() => {
         bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, [activeChat?.messages, loading]);
+    }, [activeChat?.messages?.length, loading]);
 
     return (
         <div className="flex h-screen bg-zinc-950 text-zinc-100">
@@ -45,5 +47,4 @@ const App = () => {
         </div>
     );
 };
-
 export default App;
