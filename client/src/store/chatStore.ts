@@ -1,5 +1,6 @@
 import { create } from "zustand";
-import type { ChatSession, Message } from "../types/chat"
+import { persist } from "zustand/middleware";
+import type { ChatSession, Message } from "../types/chat";
 import { defaultFilters } from "../constants/defaultFilters";
 
 type ChatStore = {
@@ -13,117 +14,139 @@ type ChatStore = {
 
     createChat: () => string;
     setActiveChatId: (id: string) => void;
-    addMessage: (id: string, v: Message) => void;
+
+    addMessage: (chatId: string, message: Message) => void;
+    setChatTitle: (chatId: string, title: string) => void;
+
     sendMessage: () => Promise<void>;
+};
 
-    setChatTitle: (id: string, v: string) => void;
+export const useChatStore = create<ChatStore>()(
+    persist(
+        (set, get) => ({
+            chats: [],
+            activeChatId: null,
 
-}
+            input: "",
+            loading: false,
 
-export const useChatStore = create<ChatStore>((set, get) => ({
-    chats: [],
-    activeChatId: null,
+            setInput: (v) => set({ input: v }),
 
-    input: "",
-    loading: false,
-    setInput: (v) => set({ input: v }),
+            createChat: () => {
+                const id = crypto.randomUUID();
 
-    createChat: (): string => {
-        const id = crypto.randomUUID();
+                const newChat: ChatSession = {
+                    id,
+                    title: "New Chat",
+                    messages: [],
+                    filters: defaultFilters,
+                };
 
-        const newChat: ChatSession = {
-            title: "New Chat",
-            id,
-            messages: [],
-            filters: defaultFilters
-        };
+                set((state) => ({
+                    chats: [newChat, ...state.chats],
+                    activeChatId: id,
+                    input: "",
+                }));
 
+                return id;
+            },
 
-        set((state) => ({
-            chats: [newChat, ...state.chats],
-            activeChatId: id,
-            input: ""
-        }));
+            setActiveChatId: (id) => set({ activeChatId: id }),
 
-        return id;
-    },
+            addMessage: (chatId, message) =>
+                set((state) => ({
+                    chats: state.chats.map((chat) =>
+                        chat.id === chatId
+                            ? { ...chat, messages: [...chat.messages, message] }
+                            : chat
+                    ),
+                })),
 
-    setActiveChatId: (id) =>
-        set(() => ({
-            activeChatId: id
-        })),
+            setChatTitle: (chatId, title) =>
+                set((state) => ({
+                    chats: state.chats.map((chat) =>
+                        chat.id === chatId ? { ...chat, title } : chat
+                    ),
+                })),
 
-    addMessage: (chatId, message) =>
-        set((state) => ({
-            chats: state.chats.map((chat) =>
-                chat.id === chatId ? { ...chat, messages: [...chat.messages, message] } : chat)
-        })),
+            sendMessage: async () => {
+                const {
+                    input,
+                    activeChatId,
+                    chats,
+                    addMessage,
+                    setChatTitle,
+                    createChat,
+                } = get();
 
-    setChatTitle: (chatId, title) =>
-        set((state) => ({
-            chats: state.chats.map((chat) =>
-                chat.id === chatId ? { ...chat, title } : chat)
-        })),
+                const trimmed = input.trim();
+                if (!trimmed) return;
 
-    sendMessage: async () => {
-        const state = get();
-        const { input, activeChatId } = state;
+                // 1. Ensure chat exists
+                let chatId = activeChatId;
 
-        if (!input.trim()) return;
+                if (!chatId) {
+                    chatId = createChat();
+                }
 
-        let chatId = activeChatId;
+                const chat = chats.find((c) => c.id === chatId);
 
-        // 1. Ensure chat exists
-        if (!chatId) {
-            chatId = state.createChat();
+                if (!chat) return;
+
+                // 2. Create user message
+                const userMessage: Message = {
+                    role: "user",
+                    content: trimmed,
+                };
+
+                // 3. Auto-generate title on first message
+                if (chat.messages.length === 0) {
+                    const rawTitle =
+                        trimmed.length > 40
+                            ? trimmed.slice(0, 40) + "..."
+                            : trimmed;
+
+                    const formattedTitle =
+                        rawTitle.charAt(0).toUpperCase() + rawTitle.slice(1);
+
+                    setChatTitle(chatId, formattedTitle);
+                }
+
+                // 4. Optimistic update
+                addMessage(chatId, userMessage);
+                set({ input: "", loading: true });
+
+                try {
+                    const res = await fetch("/api/chat", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            history: chat.messages,
+                            userMessage,
+                            filters: chat.filters,
+                        }),
+                    });
+
+                    if (!res.ok) throw new Error("Chat request failed");
+
+                    const data = await res.json();
+
+                    const assistantMessage: Message = {
+                        role: "assistant",
+                        content: data.response,
+                        reasoning_details: data.reasoning_details,
+                    };
+
+                    addMessage(chatId, assistantMessage);
+                } catch (err) {
+                    console.error("sendMessage error:", err);
+                } finally {
+                    set({ loading: false });
+                }
+            },
+        }),
+        {
+            name: "chat-storage",
         }
-
-        const userMessage: Message = {
-            role: "user",
-            content: input
-        };
-
-        // 2. Get freshest chat AFTER ensuring it exists
-        const chat = get().chats.find(c => c.id === chatId);
-
-        if (chat && chat.messages.length === 0) {
-            const title = userMessage.content.length > 40 ?
-                userMessage.content.slice(0, 40) + "..." : userMessage.content;
-            const formattedTitle = title.charAt(0).toUpperCase() + title.slice(1)
-            get().setChatTitle(chatId, formattedTitle)
-        }
-
-
-        // 3. Optimistic update
-        state.addMessage(chatId, userMessage);
-        set({ input: "", loading: true });
-
-
-        try {
-            const res = await fetch("/api/chat", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    history: chat?.messages ?? [],
-                    userMessage,
-                    filters: chat?.filters ?? [],
-                }),
-            });
-
-            const data = await res.json();
-
-            state.addMessage(chatId, {
-                role: "assistant",
-                content: data.response,
-                reasoning_details: data.reasoning_details,
-            });
-
-        } catch (err) {
-            console.error(err);
-        } finally {
-            set({ loading: false });
-        }
-
-    },
-
-}));
+    )
+);
