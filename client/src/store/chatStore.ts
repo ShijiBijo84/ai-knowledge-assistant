@@ -46,7 +46,6 @@ export const useChatStore = create<ChatStore>()(
                 set((state) => ({
                     chats: [newChat, ...state.chats],
                     activeChatId: id,
-                    input: "",
                 }));
 
                 return id;
@@ -85,7 +84,7 @@ export const useChatStore = create<ChatStore>()(
                 const {
                     input,
                     activeChatId,
-                    chats,
+
                     addMessage,
                     setChatTitle,
                     createChat,
@@ -102,8 +101,7 @@ export const useChatStore = create<ChatStore>()(
                     chatId = createChat();
                 }
 
-                const chat = chats.find((c) => c.id === chatId);
-
+                const chat = get().chats.find((c) => c.id === chatId);
                 if (!chat) return;
 
                 // 2. Create user message
