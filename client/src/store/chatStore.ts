@@ -19,6 +19,7 @@ type ChatStore = {
     setChatTitle: (chatId: string, title: string) => void;
 
     sendMessage: () => Promise<void>;
+    updateMessage: (chatId: string, messageId: string, patch: Partial<Message>) => void;
 };
 
 export const useChatStore = create<ChatStore>()(
@@ -69,6 +70,17 @@ export const useChatStore = create<ChatStore>()(
                     ),
                 })),
 
+            updateMessage: (chatId, messageId, patch) => {
+                set((state) => ({
+                    chats: state.chats.map((chat) =>
+                        chat.id === chatId ? {
+                            ...chat,
+                            messages: chat.messages.map((m) =>
+                                m.id === messageId ? { ...m, ...patch } : m)
+                        } : chat)
+                }))
+            },
+
             sendMessage: async () => {
                 const {
                     input,
@@ -77,6 +89,7 @@ export const useChatStore = create<ChatStore>()(
                     addMessage,
                     setChatTitle,
                     createChat,
+                    updateMessage
                 } = get();
 
                 const trimmed = input.trim();
@@ -97,6 +110,7 @@ export const useChatStore = create<ChatStore>()(
                 const userMessage: Message = {
                     role: "user",
                     content: trimmed,
+                    id: crypto.randomUUID()
                 };
 
                 // 3. Auto-generate title on first message
@@ -114,6 +128,10 @@ export const useChatStore = create<ChatStore>()(
 
                 // 4. Optimistic update
                 addMessage(chatId, userMessage);
+
+                const assistantMessageId = crypto.randomUUID()
+                addMessage(chatId, { role: "assistant", id: assistantMessageId, content: "" })
+
                 set({ input: "", loading: true });
 
                 try {
@@ -127,17 +145,21 @@ export const useChatStore = create<ChatStore>()(
                         }),
                     });
 
-                    if (!res.ok) throw new Error("Chat request failed");
+                    if (!res.body) throw new Error("No response")
 
-                    const data = await res.json();
+                    const reader = res.body.getReader()
+                    const decoder = new TextDecoder("utf-8")
+                    let fullText = ""
 
-                    const assistantMessage: Message = {
-                        role: "assistant",
-                        content: data.response,
-                        reasoning_details: data.reasoning_details,
-                    };
+                    while (true) {
+                        const { value, done } = await reader.read();
+                        if (done) break;
 
-                    addMessage(chatId, assistantMessage);
+                        const chunk = decoder.decode(value, { stream: true })
+                        fullText += chunk;
+                        updateMessage(chatId, assistantMessageId, { content: fullText })
+
+                    }
                 } catch (err) {
                     console.error("sendMessage error:", err);
                 } finally {

@@ -1,7 +1,7 @@
 Recipe: Classic Pancakes
 Category: breakfast
 Cuisine: american
-Tags: quick, vegetarian, comfort-food
+Tags: quick, vegetarian, comfort-food, pancake
 
 Ingredients:
 - 1 cup all-purpose flour

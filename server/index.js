@@ -101,9 +101,10 @@ app.post("/api/chat", async (req, res) => {
 
         // 5. LLM CALL
 
-        const apiResponse = await client.chat.completions.create({
+        const stream = await client.chat.completions.create({
             model: "openai/gpt-oss-120b",
             temperature: 0,
+            stream: true,
             messages: [
                 { role: "system", content: systemPrompt },
                 ...history,
@@ -111,13 +112,14 @@ app.post("/api/chat", async (req, res) => {
             ]
         });
 
-        const assistantReply = apiResponse.choices[0].message;
-
-        res.status(200).json({
-            response: assistantReply.content,
-            reasoning_details: assistantReply.reasoning_details,
-            filters: recipeFilters
-        });
+        res.setHeader("Content-Type", "text/plain; charset=utf-8")
+        for await (const chunk of stream) {
+            const token = chunk.choices[0]?.delta?.content ?? "";
+            if (token) {
+                res.write(token);
+            }
+        }
+        res.end();
 
     } catch (e) {
         console.error(e);
