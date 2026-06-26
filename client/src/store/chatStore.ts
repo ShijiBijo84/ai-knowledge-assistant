@@ -6,13 +6,11 @@ import { defaultFilters } from "../constants/defaultFilters";
 type ChatStore = {
     chats: ChatSession[];
     activeChatId: string | null;
-    openMenuId: string | null;
 
     input: string;
     loading: boolean;
 
     setInput: (v: string) => void;
-    setOpenMenuId: (v: string) => void;
 
     createChat: () => string;
     deleteChat: (chatId: string) => void;
@@ -32,14 +30,12 @@ export const useChatStore = create<ChatStore>()(
         (set, get) => ({
             chats: [],
             activeChatId: null,
-            openMenuId: null,
 
             input: "",
             loading: false,
 
             setInput: (v) => set({ input: v }),
 
-            setOpenMenuId: (v) => set({ openMenuId: v }),
 
             createChat: () => {
                 const id = crypto.randomUUID();
@@ -59,11 +55,14 @@ export const useChatStore = create<ChatStore>()(
                 return id;
             },
 
-            deleteChat: (id) =>
+            deleteChat: (id) => {
                 set((state) => ({
+                    activeChatId: state.activeChatId === id ? null : state.activeChatId,
                     chats: state.chats.filter((chat) =>
-                        chat.id !== id)
-                })),
+                        chat.id !== id),
+
+                }));
+            },
 
             setActiveChatId: (id) => set({ activeChatId: id }),
 
@@ -98,20 +97,23 @@ export const useChatStore = create<ChatStore>()(
                 const {
                     input,
                     activeChatId,
-
                     addMessage,
                     setChatTitle,
                     createChat,
-                    updateMessage
+                    updateMessage,
+                    chats,
                 } = get();
 
                 const trimmed = input.trim();
                 if (!trimmed) return;
 
                 // 1. Ensure chat exists
+
                 let chatId = activeChatId;
 
-                if (!chatId) {
+                const chatExists = chats.some(c => c.id === chatId);
+
+                if (!chatId || !chatExists) {
                     chatId = createChat();
                 }
 
