@@ -6,11 +6,13 @@ import { defaultFilters } from "../constants/defaultFilters";
 type ChatStore = {
     chats: ChatSession[];
     activeChatId: string | null;
+    openMenuId: string | null;
 
     input: string;
     loading: boolean;
 
     setInput: (v: string) => void;
+    setOpenMenuId: (v: string) => void;
 
     createChat: () => string;
     setActiveChatId: (id: string) => void;
@@ -20,6 +22,8 @@ type ChatStore = {
 
     sendMessage: () => Promise<void>;
     updateMessage: (chatId: string, messageId: string, patch: Partial<Message>) => void;
+
+
 };
 
 export const useChatStore = create<ChatStore>()(
@@ -27,11 +31,14 @@ export const useChatStore = create<ChatStore>()(
         (set, get) => ({
             chats: [],
             activeChatId: null,
+            openMenuId: null,
 
             input: "",
             loading: false,
 
             setInput: (v) => set({ input: v }),
+
+            setOpenMenuId: (v) => set({ openMenuId: v }),
 
             createChat: () => {
                 const id = crypto.randomUUID();

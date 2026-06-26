@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef } from "react";
-import { ChatHeader } from "./components/ChatHeader";
-import { ChatInput } from "./components/ChatInput";
-import { MessageList } from "./components/MessageList";
-import { Sidebar } from "./components/Sidebar";
+import { ChatHeader } from "./ui/ChatHeader";
+import { ChatInput } from "./ui/components/ChatInput";
+import { MessageList } from "./ui/components/MessageList";
+import { Sidebar } from "./ui/components/Sidebar";
 import { useChatStore } from "./store/chatStore";
 
 const App = () => {

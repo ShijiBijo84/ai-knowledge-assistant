@@ -1,5 +1,5 @@
 import type { RefObject } from "react";
-import type { Message } from "../types/chat";
+import type { Message } from "../../types/chat";
 import { EmptyState } from "./EmptyState";
 import { MessageBubble } from "./MessageBubble";
 
