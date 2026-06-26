@@ -11,6 +11,7 @@ export function Sidebar() {
     const setActiveChatId = useChatStore((s) => s.setActiveChatId);
     const openMenuId = useChatStore((s) => s.openMenuId);
     const setOpenMenuId = useChatStore((s) => s.setOpenMenuId);
+    const deleteChat = useChatStore((s) => s.deleteChat)
 
     useEffect(() => {
         const handleMenu = () => {
@@ -77,7 +78,7 @@ export function Sidebar() {
                             >
                                 <button
                                     className="w-full text-left px-3 py-2 text-sm hover:bg-zinc-800 text-red-400"
-                                    onClick={() => console.log("delete", chat.id)}
+                                    onClick={() => deleteChat(chat.id)}
                                 >
                                     Delete
                                 </button>

@@ -15,6 +15,7 @@ type ChatStore = {
     setOpenMenuId: (v: string) => void;
 
     createChat: () => string;
+    deleteChat: (chatId: string) => void;
     setActiveChatId: (id: string) => void;
 
     addMessage: (chatId: string, message: Message) => void;
@@ -57,6 +58,12 @@ export const useChatStore = create<ChatStore>()(
 
                 return id;
             },
+
+            deleteChat: (id) =>
+                set((state) => ({
+                    chats: state.chats.filter((chat) =>
+                        chat.id !== id)
+                })),
 
             setActiveChatId: (id) => set({ activeChatId: id }),
 
